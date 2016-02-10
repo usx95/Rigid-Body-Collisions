@@ -51,9 +51,9 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit2]
-FileName=source\help.h
+FileName=RigidBodySystem.cpp
 CompileCpp=1
-Folder=headers
+Folder=
 Compile=1
 Link=1
 Priority=1000
@@ -71,7 +71,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=source\math2D.cpp
+FileName=RigidBody.cpp
 CompileCpp=1
 Folder=
 Compile=1
@@ -81,7 +81,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit4]
-FileName=source\math2d.h
+FileName=math2d.h
 CompileCpp=1
 Folder=headers
 Compile=1
@@ -91,9 +91,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit5]
-FileName=source\RigidBody.cpp
+FileName=help.h
 CompileCpp=1
-Folder=
+Folder=headers
 Compile=1
 Link=1
 Priority=1000
@@ -101,7 +101,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit6]
-FileName=source\RigidBody.h
+FileName=RigidBody.h
 CompileCpp=1
 Folder=headers
 Compile=1
@@ -111,9 +111,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit7]
-FileName=source\RigidBodySystem.cpp
+FileName=RigidBodySystem.h
 CompileCpp=1
-Folder=
+Folder=headers
 Compile=1
 Link=1
 Priority=1000
@@ -121,9 +121,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=source\RigidBodySystem.h
+FileName=math2D.cpp
 CompileCpp=1
-Folder=headers
+Folder=
 Compile=1
 Link=1
 Priority=1000
