@@ -6,10 +6,10 @@ CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = main.o RigidBodySystem.o RigidBody.o math2D.o
 LINKOBJ  = main.o RigidBodySystem.o RigidBody.o math2D.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc "../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a" 
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a" 
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
-BIN      = GLProject_lab1.exe
+BIN      = "Physics Engine.exe"
 CXXFLAGS = $(CXXINCS) -std=c++11
 CFLAGS   = $(INCS) -std=c++11
 RM       = rm -f
