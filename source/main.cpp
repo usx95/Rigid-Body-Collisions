@@ -18,15 +18,15 @@ void Draw() {
 
 
 void setGrid(){
-	double rad = 25;
-	int N = 10;
-	for(int j=1;j<=1;++j){
+	double rad = 35;
+	int N = 16,M = 15;
+	for(int j=1;j<=M;++j){
 		for(int i=1;i<=N;++i){
-			Vector2D c = {rad + 2*rad*i,rad*(2*j-1)};
+			Vector2D c = {0.1 + 2*rad*i,rad*(2*j-1)};
 			double mass = 1;
 			Vector2D v = {0,0};
-			if(i==N)mass=1000,v={100.0,0.0},rad=3*rad,c={1000.0,rad};
-			System.addBody(RigidBody(c,rad,mass,v,{0.0,-90.80}));
+			if(i==N and j==M)mass=0.010,v={500.0,0.0},c={rad*3 + 2*rad*N,rad},rad=0.3*rad;
+			System.addBody(RigidBody(c,rad,mass,v,{0.0,-9.80}));
 		}
 	}
 	//System.addBody(RigidBody(Vector2D(300,300),70,10,Vector2D(-20,-20),Vector2D(0.0,-500.0)));
