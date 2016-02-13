@@ -1,0 +1,2 @@
+[section_1]
+HEAVENLY_BODY = ON

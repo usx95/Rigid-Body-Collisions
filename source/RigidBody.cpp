@@ -23,7 +23,6 @@ void RigidBody::BoundaryCollisionCheck(){
 	if(centre.x + radius >= Width  and velocity.x >= 0){
 		velocity.x *= -1;
 	}
-	
 }
 void RigidBody::nextSimulation(){
 	

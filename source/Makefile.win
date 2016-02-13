@@ -4,14 +4,14 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o RigidBodySystem.o RigidBody.o math2D.o
-LINKOBJ  = main.o RigidBodySystem.o RigidBody.o math2D.o
-LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a" 
+OBJ      = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o
+LINKOBJ  = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a"  -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
-BIN      = "Physics Engine.exe"
-CXXFLAGS = $(CXXINCS) -std=c++11
-CFLAGS   = $(INCS) -std=c++11
+BIN      = "../binaries/Physics Engine.exe"
+CXXFLAGS = $(CXXINCS) -g3 -std=c++11
+CFLAGS   = $(INCS) -g3 -std=c++11
 RM       = rm -f
 
 .PHONY: all all-before all-after clean clean-custom
@@ -24,14 +24,20 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-main.o: main.cpp
-	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+../binaries/main.o: main.cpp
+	$(CPP) -c main.cpp -o ../binaries/main.o $(CXXFLAGS)
 
-RigidBodySystem.o: RigidBodySystem.cpp
-	$(CPP) -c RigidBodySystem.cpp -o RigidBodySystem.o $(CXXFLAGS)
+../binaries/RigidBodySystem.o: RigidBodySystem.cpp
+	$(CPP) -c RigidBodySystem.cpp -o ../binaries/RigidBodySystem.o $(CXXFLAGS)
 
-RigidBody.o: RigidBody.cpp
-	$(CPP) -c RigidBody.cpp -o RigidBody.o $(CXXFLAGS)
+../binaries/RigidBody.o: RigidBody.cpp
+	$(CPP) -c RigidBody.cpp -o ../binaries/RigidBody.o $(CXXFLAGS)
 
-math2D.o: math2D.cpp
-	$(CPP) -c math2D.cpp -o math2D.o $(CXXFLAGS)
+../binaries/math2D.o: math2D.cpp
+	$(CPP) -c math2D.cpp -o ../binaries/math2D.o $(CXXFLAGS)
+
+../binaries/chameleon.o: extras/chameleon.cpp
+	$(CPP) -c extras/chameleon.cpp -o ../binaries/chameleon.o $(CXXFLAGS)
+
+../binaries/ConfigFile.o: Extras/ConfigFile.cpp
+	$(CPP) -c Extras/ConfigFile.cpp -o ../binaries/ConfigFile.o $(CXXFLAGS)

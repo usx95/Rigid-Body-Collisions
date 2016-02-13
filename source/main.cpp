@@ -2,9 +2,12 @@
 #include "RigidBody.h"
 #include "RigidBodySystem.h"
 #include "math2D.h"
-
+#include "Extras/ConfigFile.h"
+#include "Extras/Chameleon.h"
 RigidBodySystem System;
 math2D math;
+
+int HEAVENLY_BODY;
 
 void Draw() {
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -41,8 +44,17 @@ void Initialize() {
 	glLoadIdentity();
 	glOrtho(0.0, Width, 0.0, Height, -1.0, 1.0);
 }
+void stub(){
+	ConfigFile cf("config.txt");
+	HEAVENLY_BODY = (cf.Value("section_1","HEAVENLY_BODY")).equals("ON") ? 1:0;
+}
 
 int main(int iArgc, char** cppArgv) {
+	
+	stub();
+	
+	return 0;
+	
 	glutInit(&iArgc, cppArgv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowSize(500, 500);

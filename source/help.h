@@ -11,4 +11,4 @@ using namespace std;
 #define Height 1200
 #define Width 1200
 
-
+extern int HEAVENLY_BODY;
