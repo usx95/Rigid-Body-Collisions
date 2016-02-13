@@ -26,13 +26,13 @@ void RigidBodySystem::display(){
 	for(int i=0;i<sys.size();++i){
 		sys[i].nextSimulation();
 		sys[i].display();
+		printf("Accel = %f\t\t",sys[i].acceleration.norm());
 	}
+	cout<<endl;
 	collisionResolution();
 	conservation();//debug mode must be encorporated
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
-	//if((A.centre - B.centre).norm() <  A.radius + B.radius)
-	//	return 1;
 	if((A.centre - B.centre).norm() <  A.radius + B.radius and (B.velocity - A.velocity)*(B.centre - A.centre) < 0)
 		return 1;//only if distance is decreasing... 
 	return 0;
@@ -47,6 +47,17 @@ void RigidBodySystem::collisionResolution(){
 		for(int j=i+1;j<sys.size();++j){
 			if(DetectCollision(sys[i],sys[j])){
 				ResolveCollison(sys[i],sys[j]);
+			}
+		}
+	}
+	double G = 1000000;
+	if(HEAVENLY_BODY){
+		for(int i=0;i<sys.size();++i){
+			sys[i].acceleration = {0,0};
+			for(int j=0;j<sys.size();++j){
+				if(i==j)continue;
+				Vector2D radial = sys[i].centre - sys[j].centre;
+				sys[i].acceleration = sys[i].acceleration	- radial* (G * sys[j].mass/pow(radial.norm(),3) )	;
 			}
 		}
 	}

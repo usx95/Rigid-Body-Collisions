@@ -8,7 +8,7 @@ using namespace std;
 #define PI 3.14159
 
 #define FrameRate 100
-#define Height 1200
-#define Width 1200
+#define Height 2000
+#define Width 2000
 
 extern int HEAVENLY_BODY;

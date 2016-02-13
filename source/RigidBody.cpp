@@ -29,7 +29,6 @@ void RigidBody::nextSimulation(){
 	centre = centre + velocity / FrameRate + acceleration / (2 * FrameRate*FrameRate);
 	velocity = velocity + acceleration/FrameRate;
 	
-	
 	BoundaryCollisionCheck();
 }
 void RigidBody::display(){
