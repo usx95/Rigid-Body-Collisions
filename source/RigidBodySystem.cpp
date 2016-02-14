@@ -26,11 +26,11 @@ void RigidBodySystem::display(){
 	for(int i=0;i<sys.size();++i){
 		sys[i].nextSimulation();
 		sys[i].display();
-		printf("Accel = %f\t\t",sys[i].acceleration.norm());
+		//printf("Accel = %f\t\t",sys[i].acceleration.norm());
 	}
-	cout<<endl;
+	//cout<<endl;
 	collisionResolution();
-	conservation();//debug mode must be encorporated
+	//conservation();//debug mode must be encorporated
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
 	if((A.centre - B.centre).norm() <  A.radius + B.radius and (B.velocity - A.velocity)*(B.centre - A.centre) < 0)
@@ -50,7 +50,7 @@ void RigidBodySystem::collisionResolution(){
 			}
 		}
 	}
-	double G = 1000000;
+	double G = 1000000 ;
 	if(HEAVENLY_BODY){
 		for(int i=0;i<sys.size();++i){
 			sys[i].acceleration = {0,0};
