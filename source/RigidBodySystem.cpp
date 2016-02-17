@@ -53,7 +53,7 @@ void RigidBodySystem::GravitationalAcceleration(){
 		for(int j=0;j<sys.size();++j){
 			if(i==j)continue;
 			Vector2D radial = sys[i].centre - sys[j].centre;
-			sys[i].acceleration = sys[i].acceleration	- radial* (Gravitational_constant * sys[j].mass/pow(radial.norm(),3) )	;
+			sys[i].acceleration = sys[i].acceleration	- radial * (Gravitational_constant * sys[j].mass/pow(radial.norm(),3) )	;
 		}
 	}
 }

@@ -2,15 +2,14 @@
 #include "RigidBody.h"
 #include "math2D.h"
 
-RigidBody::RigidBody(Vector2D c,double r,double m,Vector2D v,Vector2D a){
+RigidBody::RigidBody(Vector2D c,double r,double m,Vector2D v){
 	centre = c;
 	radius = r;
 	mass = m;
 	velocity = v;
-	acceleration = a;
+	acceleration = Vector2D(0.0,-accGravity);
 }
 void RigidBody::BoundaryCollisionCheck(){
-	int collide = 0;
 	if(centre.y <= radius and velocity.y <= 0){
 		velocity.y *= -1;
 	}
@@ -24,15 +23,31 @@ void RigidBody::BoundaryCollisionCheck(){
 		velocity.x *= -1;
 	}
 }
+void RigidBody::printPathTrace(){
+	for(auto it=pathTrace.begin();it+1!=pathTrace.end();++it){
+		auto next = it+1;
+		
+		glBegin(GL_LINES);
+			glVertex3f((*it).x,(*it).y, 0.0);
+			glVertex3f((*next).x,(*next).y, 0.0);
+		glEnd();
+	
+	}
+}
 void RigidBody::nextSimulation(){
 	
 	centre = centre + velocity / deltaT + acceleration / (2 * deltaT*deltaT);
 	velocity = velocity + acceleration/deltaT;
 	
+	if(PATH_TRACE){
+		pathTrace.push_back(centre);
+		if(pathTrace.size() == PATH_TRACE_LENGTH)
+			pathTrace.pop_front();
+	}
 	BoundaryCollisionCheck();
 }
-	double x[30];
-	double y[30];
+double x[30];
+double y[30];
 
 void RigidBody::display(){
 	int N  = 20;
@@ -47,12 +62,14 @@ void RigidBody::display(){
 	for(int i=0;i<N;++i){
 		int j = i+1;
 		if(j==N)j=0;
-	glBegin(GL_LINES);
+		glBegin(GL_LINES);
 			glVertex3f(centre.x + x[i],centre.y +  y[i], 0.0);
 			glVertex3f(centre.x + x[j],centre.y + y[j], 0.0);
-	glEnd();
+		glEnd();
 	}
-	//glutSwapBuffers();
+	if(PATH_TRACE){
+		printPathTrace();	
+	}
 }
 
 double RigidBody::getEnergy(){
