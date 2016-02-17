@@ -20,7 +20,6 @@ std::string trim(std::string const& source, char const* delims = " \t\r\n") {
 
 ConfigFile::ConfigFile(std::string const& configFile) {
   std::ifstream file(configFile.c_str());
-
   std::string line;
   std::string name;
   std::string value;
@@ -43,7 +42,6 @@ ConfigFile::ConfigFile(std::string const& configFile) {
     value = trim(line.substr(posEqual+1));
 
     content_[inSection+'/'+name]=Chameleon(value);
-    cout<<value<<endl;
   }
 }
 

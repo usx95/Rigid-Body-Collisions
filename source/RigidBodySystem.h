@@ -11,6 +11,7 @@ public:
 	void display();
 	pair<Vector2D,Vector2D>  resVelocity(RigidBody&, RigidBody&);
 	void collisionResolution();
+	void GravitationalAcceleration();
 	bool DetectCollision(RigidBody &, RigidBody &);
 	void ResolveCollison(RigidBody &, RigidBody &);
 	

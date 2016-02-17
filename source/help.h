@@ -7,8 +7,10 @@ using namespace std;
 
 #define PI 3.14159
 
-#define FrameRate 100
-#define Height 2000
-#define Width 2000
+extern int MAX_Y, MAX_X;
+extern int window_breadth, window_height;
 
 extern int HEAVENLY_BODY;
+extern double Gravitational_constant;
+
+extern int SimulationsPerFrame, deltaT;

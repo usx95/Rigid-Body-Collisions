@@ -23,17 +23,22 @@ pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B)
  
 
 void RigidBodySystem::display(){
-	for(int i=0;i<sys.size();++i){
-		sys[i].nextSimulation();
-		sys[i].display();
-		//printf("Accel = %f\t\t",sys[i].acceleration.norm());
+	for(int f=1;f<=SimulationsPerFrame;++f){
+		for(int i=0;i<sys.size();++i){
+			sys[i].nextSimulation();
+		}
+		if(HEAVENLY_BODY){
+			GravitationalAcceleration();
+		}
+		collisionResolution();
 	}
-	//cout<<endl;
-	collisionResolution();
-	//conservation();//debug mode must be encorporated
+	for(int i=0;i<sys.size();++i){
+		sys[i].display();
+	}
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
-	if((A.centre - B.centre).norm() <  A.radius + B.radius and (B.velocity - A.velocity)*(B.centre - A.centre) < 0)
+	auto radial = (A.centre - B.centre);
+	if(radial*radial <  (A.radius + B.radius)*(A.radius + B.radius) and (B.velocity - A.velocity)*(B.centre - A.centre) < 0)
 		return 1;//only if distance is decreasing... 
 	return 0;
 }
@@ -41,6 +46,16 @@ void RigidBodySystem::ResolveCollison(RigidBody &A, RigidBody &B){
 	pair<Vector2D,Vector2D> res = resVelocity(A,B);
 	A.velocity = res.first;
 	B.velocity = res.second;
+}
+void RigidBodySystem::GravitationalAcceleration(){
+	for(int i=0;i<sys.size();++i){
+		sys[i].acceleration = {0,0};
+		for(int j=0;j<sys.size();++j){
+			if(i==j)continue;
+			Vector2D radial = sys[i].centre - sys[j].centre;
+			sys[i].acceleration = sys[i].acceleration	- radial* (Gravitational_constant * sys[j].mass/pow(radial.norm(),3) )	;
+		}
+	}
 }
 void RigidBodySystem::collisionResolution(){
 	for(int i=0;i<sys.size();++i){
@@ -50,17 +65,7 @@ void RigidBodySystem::collisionResolution(){
 			}
 		}
 	}
-	double G = 1000000 ;
-	if(HEAVENLY_BODY){
-		for(int i=0;i<sys.size();++i){
-			sys[i].acceleration = {0,0};
-			for(int j=0;j<sys.size();++j){
-				if(i==j)continue;
-				Vector2D radial = sys[i].centre - sys[j].centre;
-				sys[i].acceleration = sys[i].acceleration	- radial* (G * sys[j].mass/pow(radial.norm(),3) )	;
-			}
-		}
-	}
+	
 }
 void RigidBodySystem::conservation(){
 	double Energy = 0;
