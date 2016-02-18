@@ -24,14 +24,17 @@ pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B)
  
 
 void RigidBodySystem::display(){
-	for(int f=1;f<=SimulationsPerFrame;++f){
-		for(int i=0;i<sys.size();++i){
-			sys[i].nextSimulation();
+	if(pause_and_view==false)
+	{
+		for(int f=1;f<=SimulationsPerFrame;++f){
+			for(int i=0;i<sys.size();++i){
+				sys[i].nextSimulation();
+			}
+			if(HEAVENLY_BODY){
+				GravitationalAcceleration();
+			}
+			collisionResolution();
 		}
-		if(HEAVENLY_BODY){
-			GravitationalAcceleration();
-		}
-		collisionResolution();
 	}
 	for(int i=0;i<sys.size();++i){
 		sys[i].display();

@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o
-LINKOBJ  = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o
+OBJ      = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o ../binaries/InputHandler.o
+LINKOBJ  = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o ../binaries/InputHandler.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/mingw32/lib" -static-libstdc++ -static-libgcc "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a"  -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib/gcc/mingw32/4.7.2/include/c++"
@@ -44,3 +44,6 @@ $(BIN): $(OBJ)
 
 ../binaries/Configurations.o: Configurations.cpp
 	$(CPP) -c Configurations.cpp -o ../binaries/Configurations.o $(CXXFLAGS)
+
+../binaries/InputHandler.o: InputHandler.cpp
+	$(CPP) -c InputHandler.cpp -o ../binaries/InputHandler.o $(CXXFLAGS)

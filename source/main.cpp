@@ -3,9 +3,10 @@
 #include "RigidBodySystem.h"
 #include "math2D.h"
 #include "Configurations.h"
+#include "InputHandler.h"
 RigidBodySystem System;
 math2D math;
-
+bool pause_and_view = false;
 int frames = 0;
 double start = clock();
 void Draw() {
@@ -16,15 +17,12 @@ void Draw() {
 
 	System.display();
 	
-	if(SimulationsPerFrame * frames >= 10000){
+	if((clock() - start)/CLOCKS_PER_SEC >= 2){
 		double sps = SimulationsPerFrame * frames  * CLOCKS_PER_SEC /(clock() - start) ;
 		printf("simulations per second = %f\n",sps);
 		frames = 0;
 		start = clock();
 	}
-	
-	
-	
 	glFlush();
 	glutPostRedisplay();
 	
@@ -59,6 +57,7 @@ void Initialize() {
 int main(int iArgc, char** cppArgv) {
 	
 	Configurations cf;
+	
 	cf.Read_and_Set("config.txt");
 			
 	glutInit(&iArgc, cppArgv);
@@ -68,6 +67,9 @@ int main(int iArgc, char** cppArgv) {
 	glutCreateWindow("Rigid Body Simulations (@usaxena95)");
 	Initialize();
 	glutDisplayFunc(Draw);
+	Init_InputHandler();
+	
+	//glutReshapeFunc(Reshape);
 	glutMainLoop();
 	return 0;
 }
