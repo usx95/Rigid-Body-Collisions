@@ -32,22 +32,18 @@ void Draw() {
 
 
 void setGrid(){
-	double rad = 12;
+	double rad = 60;
 	int M = 10;
 	for(int j=1;j<=M;++j){
-		for(int i=1;i<=1;++i){
-			Vector2D c = {1000 + 3*rad*i,1200 + rad*(3*j-1)};
+		for(int i=1;i<=M;++i){
+			Vector2D c = {1000+3*rad*i,rad*(2*j-1)};
 			double mass = 400;
-			Vector2D v = {rand()%100,0};
+			Vector2D v = {0,0};
 			System.addBody(RigidBody(c,rad,mass,v));
 		}
 	}
-	if(0){
-	System.addBody(RigidBody({80+500,700+500},50,10,{-50,1}));
-	System.addBody(RigidBody({140+500,600+500},50,10,{5,10}));
-	System.addBody(RigidBody({80+500,700+600},50,10,{-5,10}));
-	System.addBody(RigidBody({80+500,700+700},50,10,{-50,10}));
-	System.addBody(RigidBody({140+500,600+400},50,10,{50,10}));
+	if(1){
+		System.addBody(RigidBody({80+500,700+500},50,10,{100,1}));
 	}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));
 	
 }

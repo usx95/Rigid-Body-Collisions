@@ -16,3 +16,5 @@ extern double Gravitational_constant, accGravity;
 extern int SimulationsPerFrame, deltaT;
 
 extern int PATH_TRACE, PATH_TRACE_LENGTH;
+
+extern double Coef_Restitution;

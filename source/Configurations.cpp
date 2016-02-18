@@ -10,7 +10,7 @@ int MAX_Y, MAX_X;
 int window_breadth, window_height;
 
 int PATH_TRACE, PATH_TRACE_LENGTH;
-
+double Coef_Restitution;
 void  Configurations::Read_and_Set(string S){
 	ConfigFile cf(S);
 	//GRAVITY
@@ -33,4 +33,6 @@ void  Configurations::Read_and_Set(string S){
 	PATH_TRACE =  (cf.Value("SPECIAL_FUNCTIONS","PATH_TRACE")).equals("ON") ? 1:0;
 	PATH_TRACE_LENGTH = double(cf.Value("SPECIAL_FUNCTIONS","PATH_TRACE_LENGTH"));
 
+	//COLLISIONS
+	Coef_Restitution = double(cf.Value("COLLISIONS","COEFFICIENT_OF_RESTITUTION"));
 }

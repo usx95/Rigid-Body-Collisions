@@ -15,8 +15,9 @@ pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B)
 	Vector2D v2T = tangent * (B.velocity*tangent);
 	
 	double v1N = A.velocity*normal, v2N = B.velocity*normal;
-	Vector2D v1NF = normal * ((v1N*(A.mass - B.mass) + 2*B.mass*v2N)/(A.mass + B.mass));
-	Vector2D v2NF = normal * ((v2N*(B.mass - A.mass) + 2*A.mass*v1N)/(A.mass + B.mass));
+
+	Vector2D v1NF = normal * (v1N*A.mass + B.mass*v2N  + Coef_Restitution*B.mass * (v2N - v1N) )/(A.mass + B.mass);
+	Vector2D v2NF = normal * (v1N*A.mass + B.mass*v2N  + Coef_Restitution*A.mass * (v1N - v2N) )/(A.mass + B.mass);
 	
 	return {v1NF + v1T,v2NF + v2T};
 }
