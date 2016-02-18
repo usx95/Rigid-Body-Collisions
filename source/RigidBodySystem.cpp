@@ -38,7 +38,8 @@ void RigidBodySystem::display(){
 	}
 	for(int i=0;i<sys.size();++i){
 		sys[i].display();
-	}
+		cout<<i<<' ';
+	}cout<<'\n';
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
 	Vector2D radial = (A.centre - B.centre);

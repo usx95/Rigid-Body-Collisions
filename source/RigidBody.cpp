@@ -24,6 +24,8 @@ void RigidBody::BoundaryCollisionCheck(){
 	}
 }
 void RigidBody::printPathTrace(){
+	if(pathTrace.size()==0)//added body in a paused system
+		return;
 	for(auto it=pathTrace.begin();it+1!=pathTrace.end();++it){
 		auto next = it+1;
 		

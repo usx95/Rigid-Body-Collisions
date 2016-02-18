@@ -193,7 +193,7 @@ BuildCmd=
 [Unit15]
 FileName=InputHandler.h
 CompileCpp=1
-Folder=
+Folder=headers
 Compile=1
 Link=1
 Priority=1000

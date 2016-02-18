@@ -34,7 +34,7 @@ void Draw() {
 
 void setGrid(){
 	double rad = 60;
-	int M = 10;
+	int M = 1;
 	for(int j=1;j<=M;++j){
 		for(int i=1;i<=M;++i){
 			Vector2D c = {1000+3*rad*i,rad*(2*j-1)};
@@ -44,7 +44,7 @@ void setGrid(){
 		}
 	}
 	if(1){
-		System.addBody(RigidBody({80+500,700+500},50,10,{100,1}));
+		System.addBody(RigidBody({80+500,70+50},50,10,{10,1}));
 	}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));
 	
 }
@@ -54,6 +54,22 @@ void keyboard(unsigned char key, int x, int y){
 void mouse(int button, int state, int x, int y){
 	handleInput.mouse(button,state,x,y);
 }
+void reshape(GLsizei width, GLsizei height) {
+	if (height == 0) height = 1;             
+	GLfloat aspect = (GLfloat)width / (GLfloat)height;
+	
+	glViewport(0, 0, width, height);
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();  
+	
+	if (width >= height) {
+			glOrtho(0.0, MAX_X * aspect, 0.0, MAX_Y, -1.0, 1.0);
+	} else {
+			glOrtho(0.0, MAX_X, 0.0, MAX_Y * aspect, -1.0, 1.0);
+	}
+}
+ 
 void Initialize() {
 	setGrid();
 	glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -65,7 +81,6 @@ void Initialize() {
 int main(int iArgc, char** cppArgv) {
 	
 	Configurations cf;
-	
 	cf.Read_and_Set("config.txt");
 			
 	glutInit(&iArgc, cppArgv);
@@ -78,8 +93,8 @@ int main(int iArgc, char** cppArgv) {
 	glutDisplayFunc(Draw);
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouse);
+//	glutReshapeFunc(reshape);
 	
-	//glutReshapeFunc(Reshape);
 	glutMainLoop();
 	return 0;
 }
