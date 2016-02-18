@@ -4,9 +4,12 @@
 #include "math2D.h"
 #include "Configurations.h"
 #include "InputHandler.h"
+
+InputHandler handleInput;
 RigidBodySystem System;
 math2D math;
 bool pause_and_view = false;
+
 int frames = 0;
 double start = clock();
 void Draw() {
@@ -45,9 +48,14 @@ void setGrid(){
 	}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));
 	
 }
+void keyboard(unsigned char key, int x, int y){
+	handleInput.keyboard(key,x,y);
+}
+void mouse(int button, int state, int x, int y){
+	handleInput.mouse(button,state,x,y);
+}
 void Initialize() {
 	setGrid();
-	
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -66,11 +74,12 @@ int main(int iArgc, char** cppArgv) {
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Rigid Body Simulations (@usaxena95)");
 	Initialize();
+	
 	glutDisplayFunc(Draw);
-	Init_InputHandler();
+	glutKeyboardFunc(keyboard);
+	glutMouseFunc(mouse);
 	
 	//glutReshapeFunc(Reshape);
 	glutMainLoop();
 	return 0;
 }
-

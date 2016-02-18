@@ -41,7 +41,7 @@ void RigidBodySystem::display(){
 	}
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
-	auto radial = (A.centre - B.centre);
+	Vector2D radial = (A.centre - B.centre);
 	if(radial*radial <  (A.radius + B.radius)*(A.radius + B.radius) and (B.velocity - A.velocity)*(B.centre - A.centre) < 0)
 		return 1;//only if distance is decreasing... 
 	return 0;
