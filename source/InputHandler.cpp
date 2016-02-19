@@ -1,7 +1,7 @@
 #include "help.h"
 #include "math2D.h"
 #include "InputHandler.h"
-
+#include "windows.h"
 void InputHandler::keyboard(unsigned char key, int x, int y) {
 	switch (key) {
     	case 27:     // ESC key
@@ -30,16 +30,24 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
 			break;
    }
 }
-void InputHandler::mouse(int button, int state, int x, int y) {
+void InputHandler::mouseClick(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) { 
 		Vector2D b = WindowToOrthogonal({x,y});
 		System.addBody(RigidBody(b,50,10,{1,1}));
 		cout<<b.x<<' '<<b.y<<endl;
 	}
+
+}
+void InputHandler::mouseMotion(int x, int y) {
+	Vector2D dir = Vector2D(x,y) - Vector2D(window_breadth/2,window_height/2);
+if(dir.x!=0 or dir.y!=0)
+printf("motion direction = (%0.2f,%0.2f)\n",dir.x,dir.y);
+	glutPostRedisplay();
+	glutWarpPointer(window_breadth/2,window_height/2);
 }
 Vector2D InputHandler::WindowToOrthogonal(Vector2D a){
 	double x = a.x * (MAX_X/window_breadth);
 	double y = (window_height - a.y) * (MAX_Y/window_height);
-	return Vector2D(x,y);
+	return {x,y};
 }
 

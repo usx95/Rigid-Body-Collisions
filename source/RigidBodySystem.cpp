@@ -24,9 +24,8 @@ pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B)
  
 
 void RigidBodySystem::display(){
-	if(pause_and_view==false)
-	{
-		for(int f=1;f<=SimulationsPerFrame;++f){
+	if(pause_and_view==false){
+		for(int f=1; f <= SimulationsPerFrame; ++f){
 			for(int i=0;i<sys.size();++i){
 				sys[i].nextSimulation();
 			}
@@ -38,8 +37,7 @@ void RigidBodySystem::display(){
 	}
 	for(int i=0;i<sys.size();++i){
 		sys[i].display();
-		cout<<i<<' ';
-	}cout<<'\n';
+	}
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
 	Vector2D radial = (A.centre - B.centre);
@@ -70,7 +68,6 @@ void RigidBodySystem::collisionResolution(){
 			}
 		}
 	}
-	
 }
 void RigidBodySystem::conservation(){
 	double Energy = 0;

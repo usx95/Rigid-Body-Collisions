@@ -51,8 +51,11 @@ void setGrid(){
 void keyboard(unsigned char key, int x, int y){
 	handleInput.keyboard(key,x,y);
 }
-void mouse(int button, int state, int x, int y){
-	handleInput.mouse(button,state,x,y);
+void mouseClick(int button, int state, int x, int y){
+	handleInput.mouseClick(button,state,x,y);
+}
+void mousePassiveMotion(int x, int y){
+	handleInput.mouseMotion(x,y);
 }
 void reshape(GLsizei width, GLsizei height) {
 	if (height == 0) height = 1;             
@@ -92,8 +95,10 @@ int main(int iArgc, char** cppArgv) {
 	
 	glutDisplayFunc(Draw);
 	glutKeyboardFunc(keyboard);
-	glutMouseFunc(mouse);
-//	glutReshapeFunc(reshape);
+	glutMouseFunc(mouseClick);
+	//	glutPassiveMotionFunc (mousePassiveMotion);//No click required
+	//	glutMotionFunc(mouseMotion);
+	//	glutReshapeFunc(reshape);
 	
 	glutMainLoop();
 	return 0;
