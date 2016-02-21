@@ -24,6 +24,7 @@ Vector2D CCamera::getPosition(){
 	return Position;
 }
 Vector2D CCamera::GetViewDir( void ){
+	if (ViewDirChanged) CalcViewDir();
 	return ViewDir;
 }
 void CCamera::CalcViewDir( void )
@@ -39,6 +40,7 @@ void CCamera::CalcViewDir( void )
 	Step2.y = sin(RotatedX * PIdiv180);
 	//Rotation around Z-axis not yet implemented, so:
 	ViewDir = Step2.unit();
+	ViewDirChanged = false;
 }
 void CCamera::Move (Vector2D Direction)
 {

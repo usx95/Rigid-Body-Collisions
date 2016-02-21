@@ -46,7 +46,7 @@ void setGrid(){
 		for(int i=1;i<=M;++i){
 			Vector2D c = Vector2D(4*rad*i,rad*(2*j-1),0.0);
 			double mass = 400;
-			Vector2D v = Vector2D(0.0,0.0,0.1);
+			Vector2D v = Vector2D(0.0,0.0,0.0);
 			System.addBody(RigidBody(c,rad,mass,v));
 		}
 	}
