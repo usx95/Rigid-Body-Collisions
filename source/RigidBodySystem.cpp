@@ -5,7 +5,7 @@
 
 void  RigidBodySystem::addBody(RigidBody b){
 	sys.push_back(b);
-	SystemEnergy += b.getEnergy();
+//	SystemEnergy += b.getEnergy();
 } 
 pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B){
 	Vector2D normal = (A.centre - B.centre).unit();

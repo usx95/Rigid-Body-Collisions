@@ -41,7 +41,6 @@ void RigidBody::nextSimulation(){
 	
 	centre = centre + velocity / deltaT + acceleration / (2 * deltaT*deltaT);
 	velocity = velocity + acceleration/deltaT;
-	
 	if(PATH_TRACE){
 		pathTrace.push_back(centre);
 		if(pathTrace.size() == PATH_TRACE_LENGTH)
@@ -54,23 +53,18 @@ double y[30];
 
 void RigidBody::display(){
 	
-	glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-	//gluLookAt(Camera.x,Camera.y,Camera.z,LookAt.x,LookAt.y,LookAt.z,0,1,0);
-	camera.alignObject();
+glPushMatrix();
 	
-	glTranslatef(centre.x, centre.y,0);
-	
+	glTranslatef(centre.x,centre.y,centre.z);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, EarthTexture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	
 	glRotatef(90,1.0f,0.0f,0.0f);
-	//glRotatef(ROTATE,0.0f,0.0f,1.0f);
 	gluQuadricTexture(quad,1);
-	//gluSphere(quad,10000*radius / (centre- camera.CameraPosition).norm(),10,10);
-	gluSphere(quad,radius,10,10);
+	gluSphere(quad,radius,100,100);
+glPopMatrix();
 	
 	if(PATH_TRACE){
 		printPathTrace();	

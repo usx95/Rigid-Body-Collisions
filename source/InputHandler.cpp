@@ -30,11 +30,35 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
     			System.sys[i].pathTrace.clear();
 			}
 			break;
-		case 'w':;
-		case 'a':;
-		case 's':;
-		case 'd':
-			camera.movePosition(key);
+		case 'a':		
+			CameraT.RotateY(5.0);
+			break;
+		case 'd':		
+			CameraT.RotateY(-5.0);
+			break;
+		case 'w':		
+			CameraT.MoveForwards( -0.1 ) ;
+			break;
+		case 's':		
+			CameraT.MoveForwards( 0.1 ) ;
+			break;
+		case 'x':		
+			CameraT.RotateX(5.0);
+			break;
+		case 'y':		
+			CameraT.RotateX(-5.0);
+			break;
+		case 'c':		
+			CameraT.StrafeRight(-0.1);
+			break;
+		case 'v':		
+			CameraT.StrafeRight(0.1);
+			break;
+		case 'f':
+			CameraT.Move(Vector2D(0.0,-0.3,0.0));
+			break;
+		case 'r':
+			CameraT.Move(Vector2D(0.0,0.3,0.0));
 			break;
    }
    glutPostRedisplay();
@@ -42,7 +66,7 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
 void InputHandler::mouseClick(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) { 
 		Vector2D b = WindowToOrthogonal({x,y,0});
-		System.addBody(RigidBody(b,50,10,{rand()%10*1.0,rand()%10 * 1.0,rand()%100 * 1.0}));
+		System.addBody(RigidBody(CameraT.getPosition() + CameraT.GetViewDir() *0.01,0.01,10,CameraT.GetViewDir() * 0.5));
 		cout<<b.x<<' '<<b.y<<'\n';
 	}
 	glutPostRedisplay();

@@ -7,6 +7,7 @@
 #include "Extras/imageloader.h"
 #include "Camera.h"
 
+CCamera CameraT;
 
 RigidBodySystem System;
 math2D math;
@@ -17,42 +18,43 @@ double start = clock();
 GLuint EarthTexture; //The id of the textur
 GLUquadric *quad;
 
-
-void Draw() {
-	++frames;
+void Display(void)
+{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	System.display();
+	glLoadIdentity();
+	CameraT.Render();
 	
-	if((clock() - start)/CLOCKS_PER_SEC >= 3){
+	System.display();	
+
+	++frames;
+	if((clock() - start)>= 3 * CLOCKS_PER_SEC ){
 		double sps = SimulationsPerFrame * frames  * CLOCKS_PER_SEC /(clock() - start) ;
 		printf("simulations per second = %f\n",sps);
 		frames = 0;
 		start = clock();
-	}
-	glFlush();
-	//glutPostRedisplay();
+	}                             
+	glFlush();  
 }
 
-
+void keyboard(unsigned char key, int x, int y){
+	handleInput.keyboard(key,x,y);
+}
 void setGrid(){
-	double rad = 100;
-	int M = 0;
+	double rad = 0.1;
+	int M = 4;
 	for(int j=1;j<=M;++j){
 		for(int i=1;i<=M;++i){
-			Vector2D c = Vector2D(1000+3*rad*i,rad*(2*j-1),0.0);
+			Vector2D c = Vector2D(4*rad*i,rad*(2*j-1),0.0);
 			double mass = 400;
-			Vector2D v = Vector2D(0,0,0);
+			Vector2D v = Vector2D(0.0,0.0,0.1);
 			System.addBody(RigidBody(c,rad,mass,v));
 		}
 	}
 	if(1){
-		System.addBody(RigidBody({MAX_X/2,MAX_Y/2,0},rad,10,{0,0,0}));
-	}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));
-	
+		System.addBody(RigidBody({0.0,0.0,0.0},rad,10,{0.01,0.1,0.1}));
+	}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));	
 }
-void keyboard(unsigned char key, int x, int y){
-	handleInput.keyboard(key,x,y);
-}
+
 void mouseClick(int button, int state, int x, int y){
 	handleInput.mouseClick(button,state,x,y);
 }
@@ -62,21 +64,7 @@ void mousePassiveMotion(int x, int y){
 void mouseActiveMotion(int x, int y){
 	handleInput.mouseActiveMotion(x,y);
 }
-void reshape(GLsizei width, GLsizei height) {
-	if (height == 0) height = 1;             
-	GLfloat aspect = (GLfloat)width / (GLfloat)height;
-	
-	glViewport(0, 0, width, height);
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();  
-	
-	if (width >= height) {
-			glOrtho(0.0, MAX_X * aspect, 0.0, MAX_Y, -1.0, 1.0);
-	} else {
-			glOrtho(0.0, MAX_X, 0.0, MAX_Y * aspect, -1.0, 1.0);
-	}
-}
+ 	
  GLuint loadTexture(Image* image) {
 	GLuint textureId;
 	glGenTextures(1, &textureId); //Make room for our texture
@@ -105,37 +93,34 @@ void Initialize() {
 	EarthTexture = loadTexture(image);
 	delete image;
 }
-
-void handleResize(int w, int h) {
-	glViewport(0, 0, w, h);
-	glMatrixMode(GL_PROJECTION);
+void handleResize(int x, int y){
+	if (y == 0 || x == 0) return;  //Nothing is visible then, so return
+	glMatrixMode(GL_PROJECTION);  
 	glLoadIdentity();
-	glOrtho(0, MAX_X, 0, MAX_Y, -1000, 1000.0);
+	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.5,20.0);
+	glMatrixMode(GL_MODELVIEW);
+	glViewport(0,0,x,y);
 }
 
 int main(int iArgc, char** cppArgv) {
-	camera.init();
 	Configurations cf;
 	cf.Read_and_Set("config.txt");
 			
 	glutInit(&iArgc, cppArgv);
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(window_breadth, window_height);
+	glutInitWindowSize(600, 600);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Rigid Body Simulations (@usaxena95)");
 	Initialize();
 	
-	glViewport(0, 0, window_breadth, window_height);
-	glutDisplayFunc(Draw);
+	glutIdleFunc(Display);
+	glutDisplayFunc(Display);
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouseClick);
-	glutMotionFunc(mouseActiveMotion);
+	//	glutMotionFunc(mouseActiveMotion);
+	//	glutPassiveMotionFunc (mousePassiveMotion);//No click required
 	glutReshapeFunc(handleResize);
 	
-	glutIdleFunc(Draw);
-	
-	//	glutPassiveMotionFunc (mousePassiveMotion);//No click required
-	//	glutReshapeFunc(reshape);
 	glutMainLoop();
-	return 0;
+	return 0;  
 }
