@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o ../binaries/InputHandler.o
-LINKOBJ  = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o ../binaries/InputHandler.o
+OBJ      = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o ../binaries/InputHandler.o ../binaries/imageloader.o ../binaries/Camera.o
+LINKOBJ  = ../binaries/main.o ../binaries/RigidBodySystem.o ../binaries/RigidBody.o ../binaries/math2D.o ../binaries/chameleon.o ../binaries/ConfigFile.o ../binaries/Configurations.o ../binaries/InputHandler.o ../binaries/imageloader.o ../binaries/Camera.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc  "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libopengl32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglu32.a" "../../../../../../Program Files (x86)/Dev-Cpp/MinGW32/lib/libglut32.a"  -g3
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW32/include"
@@ -48,3 +48,9 @@ $(BIN): $(OBJ)
 
 ../binaries/InputHandler.o: InputHandler.cpp
 	$(CPP) -c InputHandler.cpp -o ../binaries/InputHandler.o $(CXXFLAGS)
+
+../binaries/imageloader.o: Extras/imageloader.cpp
+	$(CPP) -c Extras/imageloader.cpp -o ../binaries/imageloader.o $(CXXFLAGS)
+
+../binaries/Camera.o: Camera.cpp
+	$(CPP) -c Camera.cpp -o ../binaries/Camera.o $(CXXFLAGS)

@@ -1,13 +1,14 @@
 #include "help.h"
 #include "RigidBody.h"
 #include "math2D.h"
+#include "Camera.h"
 
 RigidBody::RigidBody(Vector2D c,double r,double m,Vector2D v){
 	centre = c;
 	radius = r;
 	mass = m;
 	velocity = v;
-	acceleration = Vector2D(0.0,-accGravity);
+	acceleration = Vector2D(0.0,-accGravity,0.0);
 }
 void RigidBody::BoundaryCollisionCheck(){
 	if(centre.y <= radius and velocity.y <= 0){
@@ -52,23 +53,25 @@ double x[30];
 double y[30];
 
 void RigidBody::display(){
-	int N  = 20;
-	double s = sin(2*PI/N);
-	double c = cos(2*PI/N);
-	x[0] = radius;
-	y[0] = 0;
-	for(int i=1;i<N;++i){
-		x[i] = x[i-1] * c - y[i-1] * s;
-		y[i] = y[i-1] * c + x[i-1] * s;
-	}
-	for(int i=0;i<N;++i){
-		int j = i+1;
-		if(j==N)j=0;
-		glBegin(GL_LINES);
-			glVertex3f(centre.x + x[i],centre.y +  y[i], 0.0);
-			glVertex3f(centre.x + x[j],centre.y + y[j], 0.0);
-		glEnd();
-	}
+	
+	glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+	//gluLookAt(Camera.x,Camera.y,Camera.z,LookAt.x,LookAt.y,LookAt.z,0,1,0);
+	camera.alignObject();
+	
+	glTranslatef(centre.x, centre.y,0);
+	
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, EarthTexture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
+	glRotatef(90,1.0f,0.0f,0.0f);
+	//glRotatef(ROTATE,0.0f,0.0f,1.0f);
+	gluQuadricTexture(quad,1);
+	//gluSphere(quad,10000*radius / (centre- camera.CameraPosition).norm(),10,10);
+	gluSphere(quad,radius,10,10);
+	
 	if(PATH_TRACE){
 		printPathTrace();	
 	}

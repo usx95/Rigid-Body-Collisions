@@ -1,7 +1,6 @@
 #pragma once
 #include "help.h"
 #include "math2D.h"
-
 class RigidBody{
 	
 public:

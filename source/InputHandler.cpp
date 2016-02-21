@@ -2,6 +2,8 @@
 #include "math2D.h"
 #include "InputHandler.h"
 #include "windows.h"
+#include "Camera.h"
+InputHandler handleInput;
 void InputHandler::keyboard(unsigned char key, int x, int y) {
 	switch (key) {
     	case 27:     // ESC key
@@ -13,13 +15,13 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
     	case 'h':
 			HEAVENLY_BODY = 1 - HEAVENLY_BODY;
     		for(int i=0;HEAVENLY_BODY==0 and i<System.sys.size();++i){
-    			System.sys[i].acceleration = {0,0};
+    			System.sys[i].acceleration = {0,0,0};
     		}
     		break;
     	case 'g':
     		accGravity = 0;
     		for(int i=0;i<System.sys.size();++i){//something better
-    			System.sys[i].acceleration = {0,0};
+    			System.sys[i].acceleration = {0,0,0};
     		}
 			break;
     	case 'p':
@@ -28,26 +30,34 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
     			System.sys[i].pathTrace.clear();
 			}
 			break;
+		case 'w':;
+		case 'a':;
+		case 's':;
+		case 'd':
+			camera.movePosition(key);
+			break;
    }
+   glutPostRedisplay();
 }
 void InputHandler::mouseClick(int button, int state, int x, int y) {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) { 
-		Vector2D b = WindowToOrthogonal({x,y});
-		System.addBody(RigidBody(b,50,10,{1,1}));
-		cout<<b.x<<' '<<b.y<<endl;
+		Vector2D b = WindowToOrthogonal({x,y,0});
+		System.addBody(RigidBody(b,50,10,{rand()%10*1.0,rand()%10 * 1.0,rand()%100 * 1.0}));
+		cout<<b.x<<' '<<b.y<<'\n';
 	}
-
-}
-void InputHandler::mouseMotion(int x, int y) {
-	Vector2D dir = Vector2D(x,y) - Vector2D(window_breadth/2,window_height/2);
-if(dir.x!=0 or dir.y!=0)
-printf("motion direction = (%0.2f,%0.2f)\n",dir.x,dir.y);
 	glutPostRedisplay();
-	glutWarpPointer(window_breadth/2,window_height/2);
 }
-Vector2D InputHandler::WindowToOrthogonal(Vector2D a){
-	double x = a.x * (MAX_X/window_breadth);
-	double y = (window_height - a.y) * (MAX_Y/window_height);
-	return {x,y};
+void InputHandler::mouseActiveMotion(int x, int y) {
+	Vector2D dir = Vector2D(x,y,0) - Vector2D(window_breadth/2,window_height/2,0);
+//	camera.changeLookAt(x-window_breadth/2,y-window_height/2);
+	//glutWarpPointer(window_breadth/2,window_height/2);
+	glutPostRedisplay();
+}
+void InputHandler::mousePassiveMotion(int x, int y) {
+}
+Vector2D InputHandler::WindowToOrthogonal(Vector2D w){
+	double x = w.x * (MAX_X*1.0/window_breadth);
+	double y = (window_height - w.y) * (MAX_Y*1.0/window_height);
+	return Vector2D(x,y,0.0);
 }
 

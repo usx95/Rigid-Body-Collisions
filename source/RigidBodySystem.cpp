@@ -9,7 +9,7 @@ void  RigidBodySystem::addBody(RigidBody b){
 } 
 pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B){
 	Vector2D normal = (A.centre - B.centre).unit();
-	Vector2D tangent = Vector2D(-normal.y,normal.x).unit();
+	Vector2D tangent = Vector2D(-normal.y,normal.x,0.0).unit();
 	
 	Vector2D v1T = tangent * (A.velocity*tangent);
 	Vector2D v2T = tangent * (B.velocity*tangent);
@@ -52,7 +52,7 @@ void RigidBodySystem::ResolveCollison(RigidBody &A, RigidBody &B){
 }
 void RigidBodySystem::GravitationalAcceleration(){
 	for(int i=0;i<sys.size();++i){
-		sys[i].acceleration = {0,0};
+		sys[i].acceleration = {0,0,0};
 		for(int j=0;j<sys.size();++j){
 			if(i==j)continue;
 			Vector2D radial = sys[i].centre - sys[j].centre;
@@ -71,7 +71,7 @@ void RigidBodySystem::collisionResolution(){
 }
 void RigidBodySystem::conservation(){
 	double Energy = 0;
-	Vector2D Momentum = Vector2D(0.0,0.0);
+	Vector2D Momentum = Vector2D(0.0,0.0,0.0);
 	for(int i=0;i<sys.size();++i){
 		Energy += sys[i].getEnergy();
 		Momentum = Momentum + sys[i].getLinearMomentum();

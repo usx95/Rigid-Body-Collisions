@@ -7,6 +7,9 @@ using namespace std;
 
 #define PI 3.14159
 
+extern GLuint EarthTexture; //The id of the textur
+extern GLUquadric *quad;
+
 extern int MAX_Y, MAX_X,MIN_X,MIN_Y;
 extern int window_breadth, window_height, infinteSpace;
 
