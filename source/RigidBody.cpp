@@ -63,7 +63,8 @@ glPushMatrix();
 	
 	glRotatef(90,1.0f,0.0f,0.0f);
 	gluQuadricTexture(quad,1);
-	gluSphere(quad,radius,100,100);
+	gluSphere(quad,radius,10,10);
+	//glutWireSphere(radius,10,10);
 glPopMatrix();
 	
 	if(PATH_TRACE){

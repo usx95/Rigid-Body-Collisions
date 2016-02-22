@@ -60,6 +60,16 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
 		case 'r':
 			CameraT.Move(Vector2D(0.0,0.3,0.0));
 			break;
+			
+			
+		case '6'://decrease speed
+			SimulationsPerFrame = max(1,SimulationsPerFrame - 5);
+			printf("Simulations per frame changed to %d\n",SimulationsPerFrame);
+			break;
+		case '9'://increase speed
+			SimulationsPerFrame = SimulationsPerFrame + 5;
+			printf("Simulations per frame changed to %d\n",SimulationsPerFrame);
+			break;
    }
    glutPostRedisplay();
 }
@@ -78,6 +88,21 @@ void InputHandler::mouseActiveMotion(int x, int y) {
 	glutPostRedisplay();
 }
 void InputHandler::mousePassiveMotion(int x, int y) {
+	static bool just_warped = false;
+
+    if(just_warped) {
+        just_warped = false;
+        return;
+    }
+	just_warped = true;
+	Vector2D dir = {x-window_breadth/2,window_height/2-y,0};
+	printf("drift direction = (%f,%f)\n",dir.x,dir.y);
+	
+	if(abs(dir.x) > 1)CameraT.RotateY(2 * (dir.x < 0 ? 1:-1));
+	if(abs(dir.y) > 1)CameraT.RotateX(0.9 * (dir.y > 0 ? 1:-1));
+
+	glutWarpPointer(window_breadth/2,window_height/2);
+	glutPostRedisplay();	
 }
 Vector2D InputHandler::WindowToOrthogonal(Vector2D w){
 	double x = w.x * (MAX_X*1.0/window_breadth);

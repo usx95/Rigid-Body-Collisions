@@ -1,3 +1,4 @@
+#include "windows.h"
 #include "help.h"
 #include "RigidBody.h"
 #include "RigidBodySystem.h"
@@ -107,8 +108,12 @@ int main(int iArgc, char** cppArgv) {
 	cf.Read_and_Set("config.txt");
 			
 	glutInit(&iArgc, cppArgv);
+	//glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+	//ShowCursor(false);
+	
+	
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(600, 600);
+	glutInitWindowSize(window_breadth, window_height);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Rigid Body Simulations (@usaxena95)");
 	Initialize();
@@ -118,7 +123,7 @@ int main(int iArgc, char** cppArgv) {
 	glutKeyboardFunc(keyboard);
 	glutMouseFunc(mouseClick);
 	//	glutMotionFunc(mouseActiveMotion);
-	//	glutPassiveMotionFunc (mousePassiveMotion);//No click required
+	glutPassiveMotionFunc (mousePassiveMotion);//No click required
 	glutReshapeFunc(handleResize);
 	
 	glutMainLoop();
