@@ -6,7 +6,7 @@ double Gravitational_constant, accGravity;
 
 int SimulationsPerFrame, deltaT;
 
-int MAX_Y, MAX_X;
+int MAX_Y, MAX_X, MAX_Z;
 int window_breadth, window_height;
 
 int PATH_TRACE, PATH_TRACE_LENGTH;
@@ -25,6 +25,7 @@ void  Configurations::Read_and_Set(string S){
 	//DISPLAY
 	MAX_X = double(cf.Value("DISPLAY","MAX_X_COORDINATE"));
 	MAX_Y = double(cf.Value("DISPLAY","MAX_Y_COORDINATE"));
+	MAX_Z = double(cf.Value("DISPLAY","MAX_Z_COORDINATE"));
 	window_breadth = double(cf.Value("DISPLAY","WINDOW_WIDTH"));
 	window_height = double(cf.Value("DISPLAY","WINDOW_HEIGHT"));
 

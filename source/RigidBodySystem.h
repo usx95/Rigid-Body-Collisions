@@ -9,6 +9,7 @@ public:
 	vector<RigidBody>sys;
 	void addBody(RigidBody);
 	void display();
+	void drawGrid();
 	pair<Vector2D,Vector2D>  resVelocity(RigidBody&, RigidBody&);
 	void collisionResolution();
 	void GravitationalAcceleration();

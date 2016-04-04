@@ -9,7 +9,7 @@
 #include "Camera.h"
 
 CCamera CameraT;
-
+int SphereAccuracy = 10;
 RigidBodySystem System;
 math2D math;
 bool pause_and_view = false;
@@ -42,13 +42,17 @@ void keyboard(unsigned char key, int x, int y){
 }
 void setGrid(){
 	double rad = 0.1;
-	int M = 4;
-	for(int j=1;j<=M;++j){
-		for(int i=1;i<=M;++i){
-			Vector2D c = Vector2D(4*rad*i,rad*(2*j-1),0.0);
-			double mass = 400;
-			Vector2D v = Vector2D(0.0,0.0,0.0);
-			System.addBody(RigidBody(c,rad,mass,v));
+	int P = 0 ;
+	int Q = 2;
+	int R = 2;
+	for(int k=1;k<=P;++k){
+		for(int j=1;j<=Q;++j){
+			for(int i=1;i<=R;++i){
+				Vector2D c = Vector2D(4*rad*i,rad*(2*j-1),rad*(2*k-1));
+				double mass = 400;
+				Vector2D v = Vector2D(0.0,0.0,0.0);
+				System.addBody(RigidBody(c,rad,mass,v));
+			}
 		}
 	}
 	if(1){
@@ -98,7 +102,7 @@ void handleResize(int x, int y){
 	if (y == 0 || x == 0) return;  //Nothing is visible then, so return
 	glMatrixMode(GL_PROJECTION);  
 	glLoadIdentity();
-	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.5,20.0);
+	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.5,20);
 	glMatrixMode(GL_MODELVIEW);
 	glViewport(0,0,x,y);
 }
@@ -108,7 +112,6 @@ int main(int iArgc, char** cppArgv) {
 	cf.Read_and_Set("config.txt");
 			
 	glutInit(&iArgc, cppArgv);
-	//glutSetCursor(GLUT_CURSOR_CROSSHAIR);
 	//ShowCursor(false);
 	
 	
@@ -116,6 +119,7 @@ int main(int iArgc, char** cppArgv) {
 	glutInitWindowSize(window_breadth, window_height);
 	glutInitWindowPosition(0, 0);
 	glutCreateWindow("Rigid Body Simulations (@usaxena95)");
+	glutSetCursor(GLUT_CURSOR_FULL_CROSSHAIR);
 	Initialize();
 	
 	glutIdleFunc(Display);

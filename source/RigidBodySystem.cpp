@@ -22,9 +22,90 @@ pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B)
 	return {v1NF + v1T,v2NF + v2T};
 }
  
-
+void RigidBodySystem::drawGrid(){
+//	glColor3f(.3,.3,.3);
+	double N = 5;
+	glBegin(GL_LINES);
+	/*XZ PLANE*/
+	glColor3f(.3,.6,.3);
+	glColor3f(.1,.6,.6);
+	glColor3f(.6,.3,.3);
+	for(int i=0;i<=N;i++) {
+	  //  if (i==0) { glColor3f(.6,.3,.3); } else { glColor3f(.25,.25,.25); };
+	    
+	glColor3f(.1,.6,.6);
+		glVertex3f(i*MAX_X/N,0,0);
+	    glVertex3f(i*MAX_X/N,0,MAX_Z);
+	   // if (i==0) { glColor3f(.3,.3,.6); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.3,.6,.3);
+	    glVertex3f(0,0,i*MAX_X/N);
+	    glVertex3f(MAX_X,0,i*MAX_X/N);
+	};
+	for(int i=0;i<=N;i++) {
+	  //  if (i==0) { glColor3f(.6,.3,.3); } else { glColor3f(.25,.25,.25); };
+	
+	glColor3f(.1,.6,.6);
+	    glVertex3f(i*MAX_X/N,MAX_Y,0);
+	    glVertex3f(i*MAX_X/N,MAX_Y,MAX_Z);
+	   // if (i==0) { glColor3f(.3,.3,.6); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.3,.6,.3);
+	    glVertex3f(0,MAX_Y,i*MAX_X/N);
+	    glVertex3f(MAX_X,MAX_Y,i*MAX_X/N);
+	};
+	
+	
+	/*YZ PLANE*/
+	for(int i=0;i<=N;i++) {
+	  //  if (i==0) { glColor3f(.6,.3,.3); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.6,.3,.3);
+	    glVertex3f(0,i*MAX_Y/N,0);
+	    glVertex3f(0,i*MAX_Y/N,MAX_Z);
+	   // if (i==0) { glColor3f(.3,.3,.6); } else { glColor3f(.25,.25,.25); };
+	    
+	glColor3f(.3,.6,.3);
+		glVertex3f(0,0,i*MAX_Z/N);
+	    glVertex3f(0,MAX_Y,i*MAX_Z/N);
+	};
+	for(int i=0;i<=N;i++) {
+	  //  if (i==0) { glColor3f(.6,.3,.3); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.6,.3,.3);
+	    glVertex3f(MAX_X,i*MAX_Y/N,0);
+	    glVertex3f(MAX_X,i*MAX_Y/N,MAX_Z);
+	   // if (i==0) { glColor3f(.3,.3,.6); } else { glColor3f(.25,.25,.25); };
+	    
+	glColor3f(.3,.6,.3);
+		glVertex3f(MAX_X,0,i*MAX_Z/N);
+	    glVertex3f(MAX_X,MAX_Y,i*MAX_Z/N);
+	};
+	
+	/*XY PLANE*/
+	for(int i=0;i<=N;i++) {
+	  //  if (i==0) { glColor3f(.6,.3,.3); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.1,.6,.6);
+	    glVertex3f(i*MAX_X/N,0,0);
+	    glVertex3f(i*MAX_X/N,MAX_Y,0);
+	   // if (i==0) { glColor3f(.3,.3,.6); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.6,.3,.3);
+	    glVertex3f(0,i*MAX_Y/N,0);
+	    glVertex3f(MAX_X,i*MAX_Y/N,0);
+	};
+	
+	for(int i=0;i<=N;i++) {
+	  //  if (i==0) { glColor3f(.6,.3,.3); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.1,.6,.6);
+	    glVertex3f(i*MAX_X/N,0,MAX_Z);
+	    glVertex3f(i*MAX_X/N,MAX_Y,MAX_Z);
+	   // if (i==0) { glColor3f(.3,.3,.6); } else { glColor3f(.25,.25,.25); };
+	glColor3f(.6,.3,.3);
+	    glVertex3f(0,i*MAX_Y/N,MAX_Z);
+	    glVertex3f(MAX_X,i*MAX_Y/N,MAX_Z);
+	};
+	
+	glEnd();
+}
 void RigidBodySystem::display(){
-	if(pause_and_view==false){
+		glColor3f(1,1,1);
+		if(pause_and_view==false){
 		for(int f=1; f <= SimulationsPerFrame; ++f){
 			for(int i=0;i<sys.size();++i){
 				sys[i].nextSimulation();
@@ -38,6 +119,8 @@ void RigidBodySystem::display(){
 	for(int i=0;i<sys.size();++i){
 		sys[i].display();
 	}
+	drawGrid();
+	//cout<<"***********************************************\n";
 }
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
 	Vector2D radial = (A.centre - B.centre);

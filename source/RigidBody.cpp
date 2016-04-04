@@ -11,6 +11,12 @@ RigidBody::RigidBody(Vector2D c,double r,double m,Vector2D v){
 	acceleration = Vector2D(0.0,-accGravity,0.0);
 }
 void RigidBody::BoundaryCollisionCheck(){
+	if(centre.z <= radius and velocity.z <= 0){
+		velocity.z *= -1;
+	}
+	if(centre.z + radius >= MAX_Z  and velocity.z >= 0){
+		velocity.z *= -1;
+	}
 	if(centre.y <= radius and velocity.y <= 0){
 		velocity.y *= -1;
 	}
@@ -27,15 +33,19 @@ void RigidBody::BoundaryCollisionCheck(){
 void RigidBody::printPathTrace(){
 	if(pathTrace.size()==0)//added body in a paused system
 		return;
-	for(auto it=pathTrace.begin();it+1!=pathTrace.end();++it){
-		auto next = it+1;
+//	glPushMatrix();
 		
-		glBegin(GL_LINES);
-			glVertex3f((*it).x,(*it).y, 0.0);
-			glVertex3f((*next).x,(*next).y, 0.0);
-		glEnd();
-	
-	}
+	glBegin(GL_LINES);
+		for(auto it=pathTrace.begin();it+1!=pathTrace.end();++it){
+			auto next = it+1;
+			
+			glVertex3f((*it).x,(*it).y, (*it).z);
+			glVertex3f((*next).x,(*next).y, (*next).z);
+		
+		}
+	glEnd();
+//	glPopMatrix();
+
 }
 void RigidBody::nextSimulation(){
 	
@@ -54,7 +64,6 @@ double y[30];
 void RigidBody::display(){
 	
 glPushMatrix();
-	
 	glTranslatef(centre.x,centre.y,centre.z);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, EarthTexture);
@@ -63,13 +72,17 @@ glPushMatrix();
 	
 	glRotatef(90,1.0f,0.0f,0.0f);
 	gluQuadricTexture(quad,1);
-	gluSphere(quad,radius,10,10);
+	gluSphere(quad,radius,SphereAccuracy,SphereAccuracy);
+	
+	
+	
 	//glutWireSphere(radius,10,10);
 glPopMatrix();
 	
 	if(PATH_TRACE){
 		printPathTrace();	
 	}
+//	printf("velocity = (%f,%f,%f)\n",velocity.x,velocity.y,velocity.z);
 }
 
 double RigidBody::getEnergy(){

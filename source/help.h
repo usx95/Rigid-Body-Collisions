@@ -22,3 +22,5 @@ extern int PATH_TRACE, PATH_TRACE_LENGTH;
 extern double Coef_Restitution;
 
 extern bool pause_and_view;
+
+extern int SphereAccuracy;
