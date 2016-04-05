@@ -5,21 +5,17 @@
 
 void  RigidBodySystem::addBody(RigidBody b){
 	sys.push_back(b);
-//	SystemEnergy += b.getEnergy();
+	SystemEnergy += b.getEnergy();
 } 
 pair<Vector2D,Vector2D> RigidBodySystem::resVelocity(RigidBody &A, RigidBody &B){
 	Vector2D normal = (A.centre - B.centre).unit();
-	Vector2D tangent = Vector2D(-normal.y,normal.x,0.0).unit();
-	
-	Vector2D v1T = tangent * (A.velocity*tangent);
-	Vector2D v2T = tangent * (B.velocity*tangent);
 	
 	double v1N = A.velocity*normal, v2N = B.velocity*normal;
 
 	Vector2D v1NF = normal * (v1N*A.mass + B.mass*v2N  + Coef_Restitution*B.mass * (v2N - v1N) )/(A.mass + B.mass);
 	Vector2D v2NF = normal * (v1N*A.mass + B.mass*v2N  + Coef_Restitution*A.mass * (v1N - v2N) )/(A.mass + B.mass);
 	
-	return {v1NF + v1T,v2NF + v2T};
+	return {A.velocity - normal*v1N + v1NF,B.velocity - normal*v2N + v2NF};
 }
  
 void RigidBodySystem::drawGrid(){
@@ -120,8 +116,10 @@ void RigidBodySystem::display(){
 		sys[i].display();
 	}
 	drawGrid();
+	//conservation();
 	//cout<<"***********************************************\n";
 }
+
 bool RigidBodySystem::DetectCollision(RigidBody &A, RigidBody &B){
 	Vector2D radial = (A.centre - B.centre);
 	if(radial*radial <  (A.radius + B.radius)*(A.radius + B.radius) and (B.velocity - A.velocity)*(B.centre - A.centre) < 0)

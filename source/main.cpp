@@ -42,9 +42,12 @@ void keyboard(unsigned char key, int x, int y){
 }
 void setGrid(){
 	double rad = 0.1;
-	int P = 0 ;
-	int Q = 2;
-	int R = 2;
+	int P = 1 ;
+	int Q = 4;
+	int R = 1;
+	cout<<"Give the length height and breadth of building\n";
+	
+	cin>>P>>Q>>R;
 	for(int k=1;k<=P;++k){
 		for(int j=1;j<=Q;++j){
 			for(int i=1;i<=R;++i){
@@ -55,9 +58,9 @@ void setGrid(){
 			}
 		}
 	}
-	if(1){
-		System.addBody(RigidBody({0.0,0.0,0.0},rad,10,{0.01,0.1,0.1}));
-	}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));	
+	//if(1){
+//		System.addBody(RigidBody({0.0,0.0,0.0},rad,10,{0.01,0.1,0.1}));
+	//}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));	
 }
 
 void mouseClick(int button, int state, int x, int y){
@@ -102,7 +105,7 @@ void handleResize(int x, int y){
 	if (y == 0 || x == 0) return;  //Nothing is visible then, so return
 	glMatrixMode(GL_PROJECTION);  
 	glLoadIdentity();
-	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.5,20);
+	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.1,30);
 	glMatrixMode(GL_MODELVIEW);
 	glViewport(0,0,x,y);
 }
