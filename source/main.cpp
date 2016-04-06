@@ -40,29 +40,6 @@ void Display(void)
 void keyboard(unsigned char key, int x, int y){
 	handleInput.keyboard(key,x,y);
 }
-void setGrid(){
-	double rad = 0.1;
-	int P = 1 ;
-	int Q = 4;
-	int R = 1;
-	cout<<"Give the length height and breadth of building\n";
-	
-	cin>>P>>Q>>R;
-	for(int k=1;k<=P;++k){
-		for(int j=1;j<=Q;++j){
-			for(int i=1;i<=R;++i){
-				Vector2D c = Vector2D(4*rad*i,rad*(2*j-1),rad*(2*k-1));
-				double mass = 400;
-				Vector2D v = Vector2D(0.0,0.0,0.0);
-				System.addBody(RigidBody(c,rad,mass,v));
-			}
-		}
-	}
-	//if(1){
-//		System.addBody(RigidBody({0.0,0.0,0.0},rad,10,{0.01,0.1,0.1}));
-	//}//System.addBody(RigidBody({30+500,70+500},20,10,{5,-1},{0,0}));	
-}
-
 void mouseClick(int button, int state, int x, int y){
 	handleInput.mouseClick(button,state,x,y);
 }
@@ -90,7 +67,6 @@ void mouseActiveMotion(int x, int y){
 	return textureId; //Returns the id of the texture
 }
 void Initialize() {
-	setGrid();
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
@@ -110,10 +86,64 @@ void handleResize(int x, int y){
 	glViewport(0,0,x,y);
 }
 
+void menu(int op) {
+ 	if(op==-1)
+ 		return;
+	switch(op) {
+	case 0:
+		exit(0);
+	case 5:
+		pause_and_view = 1;
+		System.BuildBuilding(1,6,6);
+		break;
+	case 6:
+		pause_and_view = 1;
+		System.BuildBuilding(2,3,2);
+		break;
+	case 7:
+		pause_and_view = 1;
+		System.BuildBuilding(4,4,4);
+		break;
+	case 2:
+		pause_and_view = 1;
+		System.BinaryStar();
+		break;
+	case 8:
+		pause_and_view = 1;
+		System.CircularStarSystem(0);
+		break;
+	}
+}
+void addMenu(){
+	// create a sub menu 
+	int BuildingOptions = glutCreateMenu(menu);
+	glutAddMenuEntry("Thin", 5);
+	glutAddMenuEntry("Large", 7);
+	glutAddMenuEntry("Small", 6);
+	
+	int stackMenu = glutCreateMenu(menu);
+	glutAddSubMenu("Building", BuildingOptions);
+	glutAddMenuEntry("Pyramid", 1);
+	
+	int starMenu = glutCreateMenu(menu);
+	glutAddMenuEntry("Binary Star", 2);
+	glutAddMenuEntry("Circular Planetary System", 8);
+	
+	glutCreateMenu(menu);
+	glutAddSubMenu("Stack", stackMenu);
+	glutAddSubMenu("Star System", starMenu);
+	
+	glutAddMenuEntry("PathTrace", 3);
+	glutAddMenuEntry("Exit", 0);
+	glutAddMenuEntry("Cancel", -1);
+	
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
+}
 int main(int iArgc, char** cppArgv) {
 	Configurations cf;
 	cf.Read_and_Set("config.txt");
 			
+	CameraT = CCamera();
 	glutInit(&iArgc, cppArgv);
 	//ShowCursor(false);
 	
@@ -133,6 +163,7 @@ int main(int iArgc, char** cppArgv) {
 	glutPassiveMotionFunc (mousePassiveMotion);//No click required
 	glutReshapeFunc(handleResize);
 	
+	addMenu();
 	glutMainLoop();
 	return 0;  
 }

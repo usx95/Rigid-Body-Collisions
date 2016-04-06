@@ -14,7 +14,7 @@ class Vector2D{
 	
 	Vector2D operator*(double);
 	Vector2D operator/(double);
-
+	Vector2D cross(Vector2D a);
 	double norm();
 	Vector2D unit();
 };

@@ -1,8 +1,8 @@
 #include "help.h"
 #include "Configurations.h"
 
-int HEAVENLY_BODY;
-double Gravitational_constant, accGravity;
+int HEAVENLY_BODY, EarthGravity, BOUNDARY = 1;
+double Gravitational_constant,accGravity;
 
 int SimulationsPerFrame, deltaT;
 

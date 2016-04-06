@@ -12,7 +12,7 @@ extern GLUquadric *quad;
 extern int MAX_Y, MAX_X,MIN_X,MIN_Y,MAX_Z,MIN_Z;
 extern int window_breadth, window_height, infinteSpace;
 
-extern int HEAVENLY_BODY;
+extern int HEAVENLY_BODY, EarthGravity, BOUNDARY;
 extern double Gravitational_constant, accGravity;
 
 extern int SimulationsPerFrame, deltaT;

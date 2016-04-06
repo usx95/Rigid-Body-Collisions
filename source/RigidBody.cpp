@@ -8,7 +8,10 @@ RigidBody::RigidBody(Vector2D c,double r,double m,Vector2D v){
 	radius = r;
 	mass = m;
 	velocity = v;
-	acceleration = Vector2D(0.0,-accGravity,0.0);
+	if(EarthGravity )
+		acceleration = Vector2D(0.0,-accGravity,0.0);
+	else
+		acceleration = Vector2D(0.0,0.0,0.0);
 }
 void RigidBody::BoundaryCollisionCheck(){
 	if(centre.z <= radius and velocity.z <= 0){
@@ -56,7 +59,8 @@ void RigidBody::nextSimulation(){
 		if(pathTrace.size() == PATH_TRACE_LENGTH)
 			pathTrace.pop_front();
 	}
-	BoundaryCollisionCheck();
+	if(BOUNDARY)
+		BoundaryCollisionCheck();
 }
 double x[30];
 double y[30];
@@ -77,7 +81,7 @@ glPushMatrix();
 	
 	
 	//glutWireSphere(radius,10,10);
-glPopMatrix();
+	glPopMatrix();
 	
 	if(PATH_TRACE){
 		printPathTrace();	

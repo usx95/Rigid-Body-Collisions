@@ -4,6 +4,8 @@
 #include "windows.h"
 #include "Camera.h"
 InputHandler handleInput;
+int fullscreen = 0;
+int windowPosX, windowPosY, windowWidth, windowHeight;
 void InputHandler::keyboard(unsigned char key, int x, int y) {
 	switch (key) {
     	case 27:     // ESC key
@@ -14,22 +16,31 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
     		break;
     	case 'h':
 			HEAVENLY_BODY = 1 - HEAVENLY_BODY;
-    		for(int i=0;HEAVENLY_BODY==0 and i<System.sys.size();++i){
+    		EarthGravity = 0;
+			
+			for(int i=0;HEAVENLY_BODY==0 and i<System.sys.size();++i){
     			System.sys[i].acceleration = {0,0,0};
     		}
     		printf("Heavenly body status changed to %d\n",HEAVENLY_BODY);
     		break;
     	case 'g':
-    		accGravity = 0;
+    		HEAVENLY_BODY = 0;
+			EarthGravity = 1 - EarthGravity;
     		for(int i=0;i<System.sys.size();++i){//something better
-    			System.sys[i].acceleration = {0,0,0};
-    		}
+    			if(EarthGravity )
+					System.sys[i].acceleration = Vector2D(0.0,-accGravity,0.0);
+				else
+					System.sys[i].acceleration = Vector2D(0.0,0.0,0.0);
+			}
 			break;
     	case 'p':
     		PATH_TRACE = 1 - PATH_TRACE;
     		for(int i=0;i<System.sys.size();++i){
     			System.sys[i].pathTrace.clear();
 			}
+			break;
+		case 'b':		
+			BOUNDARY = 1 - BOUNDARY;
 			break;
 		case 'a':		
 			CameraT.StrafeRight(-0.1);
@@ -56,6 +67,20 @@ void InputHandler::keyboard(unsigned char key, int x, int y) {
 			CameraT.Move(Vector2D(0.0,0.05,0.0));
 			break;
 			
+		case '0':
+			fullscreen = !fullscreen;
+			if (fullscreen){
+				windowPosX   = glutGet(GLUT_WINDOW_X); // Save parameters for restoring later
+	            windowPosY   = glutGet(GLUT_WINDOW_Y);
+	            windowWidth  = glutGet(GLUT_WINDOW_WIDTH);
+	            windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
+				glutFullScreen();                /* Go to full screen */
+			}
+			else{
+				glutReshapeWindow(windowWidth, windowHeight); // Switch into windowed mode
+            	glutPositionWindow(windowPosX, windowPosX);   // Position top-left corner
+			}
+			break;
 			
 		case '6'://decrease speed
 			SimulationsPerFrame = max(1,SimulationsPerFrame - 1);

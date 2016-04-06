@@ -28,6 +28,9 @@ Vector2D Vector2D::operator+(Vector2D a){
 Vector2D Vector2D::operator-(Vector2D a){
 	return Vector2D(-a.x+this->x,-a.y+this->y,-a.z+this->z);
 }
+Vector2D Vector2D::cross(Vector2D a){
+	return Vector2D(y*a.z-z*a.y,z*a.x-a.z*x,x*a.y-a.x*y);
+}
 //dot product
 double Vector2D::operator*(Vector2D a){
 	return (a.x * this->x + a.y * this->y + a.z * this->z);
@@ -44,4 +47,3 @@ int math2D::genRand(int L,int R){
 	assert(L<=R);
 	return L + rand()%(R-L+1);
 }
-

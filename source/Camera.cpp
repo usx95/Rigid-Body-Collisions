@@ -6,13 +6,14 @@
 CCamera::CCamera()
 {
 	//Init with standard OGL values:
-	Position = Vector2D (	0.0, 
-							0.0,
-							0.0);
-	ViewDir = Vector2D(	0.0,
-							0.0,
+	Position = Vector2D (	MAX_X/2, 
+							MAX_Y/2,
+							MAX_Z/2);
+	ViewDir = Vector2D(	-1.0,
+							-1.0,
 							-1.0);
-	ViewDirChanged = false;
+	ViewDirChanged = true;
+	CalcViewDir();
 	//Only to be sure:
 	RotatedX = RotatedY = RotatedZ = 0.0;
 	
