@@ -110,7 +110,7 @@ void menu(int op) {
 		break;
 	case 8:
 		pause_and_view = 1;
-		System.CircularStarSystem(0);
+		System.CircularStarSystem(4);
 		break;
 	}
 }

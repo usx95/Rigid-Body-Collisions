@@ -236,6 +236,7 @@ void RigidBodySystem::BuildBuilding(int x,int y,int z){
 	BOUNDARY = 1;
 	HEAVENLY_BODY = 0;
 	
+	Vector2D offset = {MAX_X/2,0,MAX_Z/2};
 	double rad = 0.1;
 	for(int k=1;k<=x;++k){
 		for(int j=1;j<=y;++j){
@@ -243,7 +244,7 @@ void RigidBodySystem::BuildBuilding(int x,int y,int z){
 				Vector2D c = Vector2D(2*rad*i,rad*(2*j-1),rad*(2*k-1));
 				double mass = 400;
 				Vector2D v = Vector2D(0.0,0.0,0.0);
-				addBody(RigidBody(c,rad,mass,v));
+				addBody(RigidBody(c+offset,rad,mass,v));
 			}
 		}
 	}
