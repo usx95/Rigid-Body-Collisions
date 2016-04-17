@@ -17,6 +17,8 @@ public:
 	bool DetectCollision(RigidBody &, RigidBody &);
 	void ResolveCollison(RigidBody &, RigidBody &);
 	void BuildBuilding(int N,int M,int O);
+	void BuildPyramid();
+	void BuildTiltedSheet();
 	void CircularStarSystem(int N);
 	void BinaryStar();
 	void conservation();

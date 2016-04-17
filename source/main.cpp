@@ -84,6 +84,9 @@ void handleResize(int x, int y){
 	gluPerspective(40.0,(GLdouble)x/(GLdouble)y,0.1,30);
 	glMatrixMode(GL_MODELVIEW);
 	glViewport(0,0,x,y);
+	window_breadth = x;
+	window_height = y;
+	
 }
 
 void menu(int op) {
@@ -92,6 +95,14 @@ void menu(int op) {
 	switch(op) {
 	case 0:
 		exit(0);
+	case 1:
+		pause_and_view = 1;
+		System.BuildPyramid();
+		break;
+	case 10:
+		pause_and_view = 1;
+		System.BuildTiltedSheet();
+		break;
 	case 5:
 		pause_and_view = 1;
 		System.BuildBuilding(1,6,6);
@@ -104,6 +115,8 @@ void menu(int op) {
 		pause_and_view = 1;
 		System.BuildBuilding(4,4,4);
 		break;
+		
+		
 	case 2:
 		pause_and_view = 1;
 		System.BinaryStar();
@@ -124,6 +137,7 @@ void addMenu(){
 	int stackMenu = glutCreateMenu(menu);
 	glutAddSubMenu("Building", BuildingOptions);
 	glutAddMenuEntry("Pyramid", 1);
+	glutAddMenuEntry("Tilted Sheet", 10);
 	
 	int starMenu = glutCreateMenu(menu);
 	glutAddMenuEntry("Binary Star", 2);

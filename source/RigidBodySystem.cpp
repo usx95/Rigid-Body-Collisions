@@ -250,6 +250,45 @@ void RigidBodySystem::BuildBuilding(int x,int y,int z){
 	}
 }
 
+void RigidBodySystem::BuildTiltedSheet(){
+	sys.clear();
+	EarthGravity = 1;
+	BOUNDARY = 1;
+	HEAVENLY_BODY = 0;
+	int N = 3;
+	Vector2D offset = {MAX_X/2,0,MAX_Z/4};
+	double rad = 0.1;
+	for(int j=1;j<=10*N;++j){
+		for(int i=1;i<=N;++i){
+			Vector2D c = Vector2D(2*rad*i,rad*(2*j-1),rad*(2*j-1));
+			double mass = 400;
+			Vector2D v = Vector2D(0.0,0.0,0.0);
+			addBody(RigidBody(c+offset,rad,mass,v));
+		}
+	}
+}
+void RigidBodySystem::BuildPyramid(){
+	sys.clear();
+	EarthGravity = 1;
+	BOUNDARY = 1;
+	HEAVENLY_BODY = 0;
+	int N = 5;
+	Vector2D offset = {MAX_X/2,0,MAX_Z/2};
+	double rad = 0.1;
+	int f = 0;
+	for(int k=1;k<=(N+1)/2;++k){
+		++f;
+		for(int j=f;j<=N-f+1;++j){
+			for(int i=f;i<=N-f+1;++i){
+				Vector2D c = Vector2D(2*rad*i,rad*(2*k-1),rad*(2*j-1));
+				double mass = 400;
+				Vector2D v = Vector2D(0.0,0.0,0.0);
+				addBody(RigidBody(c+offset,rad,mass,v));
+			}
+		}
+	}
+}
+
 void RigidBodySystem::BinaryStar(){
 	sys.clear();
 	BOUNDARY = 0;
