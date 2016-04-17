@@ -95,6 +95,9 @@ void menu(int op) {
 	switch(op) {
 	case 0:
 		exit(0);
+	case 11:
+		System.sys.clear();
+		break;
 	case 1:
 		pause_and_view = 1;
 		System.BuildPyramid();
@@ -147,6 +150,7 @@ void addMenu(){
 	glutAddSubMenu("Stack", stackMenu);
 	glutAddSubMenu("Star System", starMenu);
 	
+	glutAddMenuEntry("Clear All", 11);
 	glutAddMenuEntry("PathTrace", 3);
 	glutAddMenuEntry("Exit", 0);
 	glutAddMenuEntry("Cancel", -1);

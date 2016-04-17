@@ -46,8 +46,15 @@ void RigidBody::printPathTrace(){
 			glVertex3f((*next).x,(*next).y, (*next).z);
 		
 		}
+		if(HEAVENLY_BODY){//acceleration vector
+			glColor3f(1,0,0);
+			glVertex3f(centre.x,centre.y,centre.z);
+			Vector2D temp = acceleration.unit();
+			glVertex3f(centre.x+0.5*temp.x,centre.y+0.5*temp.y,centre.z+0.5*temp.z);
+			glColor4f(1,1,1,1);
+		}
 	glEnd();
-//	glPopMatrix();
+	glPopMatrix();
 
 }
 void RigidBody::nextSimulation(){
@@ -81,7 +88,7 @@ glPushMatrix();
 	
 	
 	//glutWireSphere(radius,10,10);
-	glPopMatrix();
+glPopMatrix();
 	
 	if(PATH_TRACE){
 		printPathTrace();	
