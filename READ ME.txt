@@ -1,0 +1,53 @@
+TITLE : RIGID BODY COLLISIONS
+***********************************************************************************
+
+AUTHORS:
+	Utkarsh Saxena 	(130001038),
+	Tilak Lodha		(130001037)
+Link to Git Repo: https://github.com/usaxena95/Rigid-Body-Collisions/tree/two-dimensional
+***********************************************************************************
+
+FEATURES:
+	1. Simulation of Collsions- Simulation of various types of stacked bodies when hit by an object.
+		Following types of stacks are hard coded- Thin sheet, Large cuboid, Small cuboid, Pyramid, Hanging staircase(it falls uwhen played)
+	2. Simulation of gravitational interaction among bodies.
+		Following types of special (worth noticing interactions) are hard coded: Binary Star system, One Star Panetary system.
+		In these special interactions we have hard coded special values of velocity such that centrifugal force balances the gravitational force resulting in stable orbits)
+	3. Path Trace- A special feature that keeps history of trajectory of each body and shows it as a curve.
+	4. Acceleration Vector- In case of planetary interactions, Acceleration vector is shown in red for each planet.
+		(In case of circular motion in stable orbits, this vector is seen to be perpendicular to path trace.)
+	5. The bodies can be transformed from simple(light) objects on earth to big heavy planets whith 'h' key.
+	6. Pause and View - The whole simulation can be paused. Eye can still move anywhere and observe the trajectories. Path Trace stays static.
+	While we choose any option from the RMB menu, the system is set and paused for the user to view. User can play the simulation and see the results.
+***********************************************************************************
+
+CONTROLS:
+	ESC-	Close the program
+	p-		Toggle Path Trace( Removing it increases the speed of simulation)
+	h- 		Toggle Heavenly Body(i.e. Gravitational Force of Attraction between the bodies)
+	g-		Toggle Acceleration due to gravity (For normal objects placed in influence of gravity of earth)
+	Space-	Toggle Pause and View(Pause the simultion and move around to see everything)
+	Mouse,w,a,s,d-	Move the eye anywhere in 3D (As in any FPS Game)
+	r,f-	Move eye vertically up/down.
+	LMB-	Shoot a ball (from current position in the direction where eye is looking)
+	RMB-	Explore lot of options that can be done including seeing star systems and collision simulation of large number of bodies.
+	Num 8,9-	Increase Speed of Simulation
+	Num 5,6-	Decrease Speed of Simulation
+
+***********************************************************************************
+
+PORTABLE EXECUTABLE:
+	1. We have included the excutables in the 'binaries' folder.
+	2. Download 3 items 'earth.bmp', 'config.txt' and 'Physics Engine.exe' from the 'binaries' folder.
+	3. Double click 'Physics Engine.exe' and enjoy.
+***********************************************************************************
+
+INSTALLATION INSTRUCTIONS(For seeing code or further development):
+	1. Requirements for executing the code:
+		a. Dev C++ IDE
+		b. glutMINGW32 folder (http://chortle.ccsu.edu/bloodshed/howtogl.html)
+	2. Configure Dev C++ to use glut libraries using the the instructions given here : (http://chortle.ccsu.edu/bloodshed/howtogl.html)
+	3. Download the folders 'source' and 'binary'
+	4. Double Click 'Rigid Body Collisions.dev' in source folder.
+	5. Enjoy !
+***********************************************************************************
