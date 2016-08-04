@@ -3,7 +3,7 @@ TITLE : RIGID BODY COLLISIONS
 
 AUTHORS:
 	Utkarsh Saxena 	(130001038),
-	Tilak Lodha		(130001037)
+	Tilak Lodha	(130001037)
 Link to Git Repo: https://github.com/usaxena95/Rigid-Body-Collisions/tree/two-dimensional
 ***********************************************************************************
 
